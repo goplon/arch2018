@@ -1,6 +1,6 @@
 #!/bin/bash
 echo 'Прписываем имя компьютера'
-echo "ordanax-pc" > /etc/hostname
+echo "dell5555-pc" > /etc/hostname
 ln -svf /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
 
 echo '3.4 Добавляем русскую локаль системы'
@@ -35,10 +35,10 @@ echo 'Ставим программу для Wi-fi'
 pacman -S dialog wpa_supplicant --noconfirm 
 
 echo 'Добавляем пользователя'
-useradd -m -g users -G wheel -s /bin/bash ordanax
+useradd -m -g users -G wheel -s /bin/bash jafar
 
 echo 'Устанавливаем пароль пользователя'
-passwd ordanax
+passwd
 echo 'Устанавливаем SUDO'
 echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 
@@ -47,16 +47,17 @@ echo '[multilib]' >> /etc/pacman.conf
 echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
 pacman -Syy
 
-echo "Куда устанавливем Arch Linux на виртуальную машину?"
-read -p "1 - Да, 0 - Нет: " vm_setting
-if [[ $vm_setting == 0 ]]; then
-  gui_install="xorg-server xorg-drivers xorg-xinit"
-elif [[ $vm_setting == 1 ]]; then
-  gui_install="xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils"
-fi
+#echo "Куда устанавливем Arch Linux на виртуальную машину?"
+#read -p "1 - Да, 0 - Нет: " vm_setting
+#if [[ $vm_setting == 0 ]]; then
+#  gui_install="xorg-server xorg-drivers xorg-xinit"
+#elif [[ $vm_setting == 1 ]]; then
+#  gui_install="xorg-server xorg-drivers xorg-xinit virtualbox-guest-utils"
+#fi
 
 echo 'Ставим иксы и драйвера'
-pacman -S $gui_install
+#pacman -S $gui_install
+pacman -S xorg-server xorg-drivers xorg-xinit xorg-twm xorg-xclock xterm 
 
 echo 'Ставим Xfce, LXDM и сеть'
 pacman -S xfce4 xfce4-goodies lxdm networkmanager network-manager-applet ppp --noconfirm
